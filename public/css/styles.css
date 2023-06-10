@@ -1,6 +1,290 @@
-/******* Change Box Model ***************/
+/* Change Box Model */
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  background-image: url("/images/site/small_check.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* Wraps the entire content */
+#wrapper {
+  background-color: #fff !important;
+  border: 2vw solid #617F7D;
+  width: 100vw;
+
+}
+
+/* Header alignment and style */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  background-color: #7E826D;
+}
+
+.siteName a {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+#tools {
+  opacity: 0.7;
+}
+
+#tools a {
+  color: #333;
+  text-decoration: none;
+}
+
+#tools a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation alignment and style */
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #8C6D6B;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+nav li {
+  flex-grow: 1;
+  margin: 0 1vw;
+}
+
+nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  padding: 1vw;
+}
+
+nav a:hover {
+  color: #555;
+}
+
+h1 {
+  margin-left: 10px;
+}
+/* Car image and details */
+#car-display {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: 100%;
+}
+
+.ownItWrapper {
+  position: absolute;
+  top: 60%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  width: 55%;
+  height: 150%;
+  background-color: #c7c7c490;
+  color: #00CED1;
+  margin-left: 40px;
+  padding:1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#car-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+#car-attributes {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#car-attributes li {
+  font-weight: bold;
+  font-size: 15px;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#car-attributes li:last-child {
+  border-bottom: none;
+}
+
+#own-button {
+  display: block;
+  width: 90%;
+}
+
+#own-button img {
+  width: 80%;
+  height: auto;
+}
+
+#car-image {
+  width: 80%;
+  height: auto;
+  max-width: 100%;
+  margin-right: -15vw;
+}
+/* Review list */
+#review-list {
+  list-style-type: circle;
+}
+
+#review-list li {
+  font-weight: bold;
+  font-size: 15px;
+  padding: 15px;
+  margin-right: 10px;
+  border-bottom: 1px solid #101095;
+}
+
+#review-list li:last-child {
+  border-bottom: none;
+}
+
+/* Upgrades list */
+h3 {
+  margin-left: 10px;
+  margin-top: 60px;
+}
+
+#upgrade-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.upgradeItem {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  margin-left:-40px;
+}
+
+.image-wrapper {
+  background-color: #7E826D;
+  padding: 10px;
+  width: 200px; 
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper img {
+  display: block;
+  width: 80%;
+  height: auto;
+}
+
+.text {
+  margin-top: 15px;
+}
+
+#option-wrapper {
+  display: flex;
+  flex-direction: column; 
+}
+
+#reviews-wrapper {
+  order: 1;
+}
+
+#upgrades {
+  order: 2;
+}
+
+footer {
+  margin-left: 10px;
+}
+
+/* Styles for screens larger than 768px */
+@media (min-width: 768px) {
+  body {
+    background-image: url("/images/site/checkerboard.jpg");
+  }
+
+  h3 {
+    font-size:xx-large;
+  }
+
+  #wrapper {
+    width: 90vw;
+    margin: 5vw;
+  }
+
+  .siteName a {
+    font-size: 30px;
+  }
+
+  #car-name {
+    font-size: 3vw;
+  }
+  .ownItWrapper {
+    top: 45%;
+    left: 17%;
+    width: 30%;
+    height: 80%;
+    margin-left: 0;
+  }
+  #car-attributes li, nav a {
+    font-size: 2.5vw;
+  }
+
+  .upgradeItem {
+    flex-basis: 50%;
+    margin-left: 0;
+  }
+
+  #option-wrapper {
+    flex-direction: row;
+  }
+
+  #upgrades {
+    flex: 1;
+    order: 1;
+  }
+
+  #reviews-wrapper {
+    flex: 1;
+    order: 2;
+  }
+
+  #review-list li {
+    font-size: 25px;
+  }
+  
+}
+
