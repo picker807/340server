@@ -230,6 +230,47 @@ footer {
   margin-left: 10px;
 }
 
+/* Style for inventory grid*/
+#inv-display {
+  list-style: none;
+  padding: 0;
+  margin-left: 1vw;
+}
+
+#inv-display li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+#inv-display li img {
+  width: 20vw; 
+  height: auto;
+  margin-right: 10px;
+}
+
+#inv-display li hr {
+  border: none;
+  border-top: 4px solid #617F7D;
+  margin: 0;
+  width: 90%;
+}
+
+#inv-display li .namePrice {
+  flex-grow: 1;
+}
+
+#inv-display li h2 {
+  margin: 0;
+  font-size: 3vw;
+}
+
+#inv-display li span {
+  font-weight: bold;
+  font-size: 3vw;
+}
+/* END Style for inventory grid*/
+
 /* Styles for screens larger than 768px */
 @media (min-width: 768px) {
   body {
