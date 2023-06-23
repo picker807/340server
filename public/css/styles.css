@@ -298,6 +298,36 @@ footer {
 
 /* END error page */
 
+/* Individual vehicle page*/
+.car-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-image {
+  margin-bottom: 20px;
+}
+
+.car-image img {
+  width: 100%;
+  height: auto;
+}
+
+.car-info {
+  margin-left: 20px;
+}
+
+.car-info p {
+  margin: 5px;
+  font-size: 4vw;
+}
+
+.car-info-label {
+  font-weight: bold;
+  font-size: 5vw;
+  color:#8C6D6B
+}
+
 /* Styles for screens larger than 768px */
 @media (min-width: 768px) {
   body {
@@ -353,6 +383,30 @@ footer {
   #review-list li {
     font-size: 25px;
   }
-  
+     /*individual vehicle page*/
+  .car-details {
+    flex-direction: row;
+  }
+
+  .car-image {
+    flex: 0 0 40%;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 30px;
+  }
+
+  .car-info {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+
+  .car-info-label {
+    font-size: 1.25rem;
+  }
+  .car-info p {
+    font-size: 1.15rem;
+  }
 }
+
+/* END Larger screen */
 
