@@ -11,6 +11,7 @@ const app = express()
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute.js")
+const errorRoute = require("./routes/error.js")
 const utilities = require("./utilities/")
 
 /* ***********************
@@ -28,9 +29,11 @@ app.use(require("./routes/static"))
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Intentional 500 error
+app.use("/error", errorRoute)
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+  next({status: 404, message: 'Sorry, we appear to have lost that page, or it never existed.'})
 })
 
 /* ***********************
@@ -40,7 +43,7 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Looks like you took a wrong turn!'}
+  if(err.status == 404 || err.status == 500){ message = err.message} else {message = 'Looks like you took a wrong turn!'}
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,

@@ -63,22 +63,21 @@ Util.buildClassificationGrid = async function(data){
 Util.buildInventoryDisplay = async function (info) {
   let display
   const data = info[0]
-  console.log(data.inv_miles)
   const formatter = new Intl.NumberFormat('en-US')
   if (data) {
     display = `
     <div class="car-details">
-    <div class="car-image">
-      <img src="${data.inv_image}" alt="Car Image">
+      <div class="car-image">
+        <img src="${data.inv_image}" alt="Car Image">
+      </div>
+      <div class="car-info">
+        <h2 id="car-title">${data.inv_year} ${data.inv_make} ${data.inv_model}</h2>
+        <h2 id="car-price">$${formatter.format(data.inv_price)}</h2>
+        <p><span class="car-info-label">Mileage:</span> <span id="car-miles">${formatter.format(data.inv_miles)}</span></p>
+        <p><span class="car-info-label">Color:</span> <span id="car-color">${data.inv_color}</span></p>
+        <p><span class="car-info-label">Description:</span> <span id="car-description">${data.inv_description}</span></p>
+      </div>
     </div>
-    <div class="car-info">
-      <h2 id="car-title">${data.inv_year} ${data.inv_make} ${data.inv_model}</h2>
-      <h2 id="car-price">$${formatter.format(data.inv_price)}</h2>
-      <p><span class="car-info-label">Mileage:</span> <span id="car-miles">${formatter.format(data.inv_miles)}</span></p>
-    <p><span class="car-info-label">Color:</span> <span id="car-color">${data.inv_color}</span></p>
-    <p><span class="car-info-label">Description:</span> <span id="car-description">${data.inv_description}</span></p>
-    </div>
-  </div>
     `
   } else {
     display = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
@@ -93,6 +92,11 @@ Util.buildInventoryDisplay = async function (info) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+// intentional 500 error
+Util.catchErrors = (err, req, res, next) => {
+  res.redirect('/error');
+};
 
 
 module.exports = Util
