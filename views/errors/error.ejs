@@ -1,0 +1,12 @@
+<div id="error-container">
+<!--Heading: Populate the title-->
+<% if (title) { %>
+  <h1 class="error-title"><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<h1 id="error-message"><%- message %></h1>
+<img class="error-image" src="/images/error/car_crash.png" alt="car in water">
+<h1 id="bottom-message">Use a link at the top, and let's get you back on the road.</h1>
+</div>
