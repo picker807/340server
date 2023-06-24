@@ -43,7 +43,15 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404 || err.status == 500){ message = err.message} else {message = 'Looks like you took a wrong turn!'}
+  console.log(err)
+  let message
+  if(err.status == 404 || err.status == 500){ 
+    message = err.message
+  } else if (!err.status) {
+    err.status = 404,
+    message = 'Sorry, we appear to have lost that page, or it never existed.'
+  } else {message = 'Looks like you took a wrong turn!'}
+  console.log(message)
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,
