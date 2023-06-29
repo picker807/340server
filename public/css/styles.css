@@ -403,6 +403,30 @@ footer {
 }
 /* END Login and Registration Forms */
 
+/* Required input validation */
+input:required:invalid,
+input:focus:invalid {
+  border-color: red;
+}
+
+input:required:invalid::placeholder {
+  color: red;
+}
+
+input:focus:invalid::placeholder {
+  color: #aaa;
+}
+
+input:required:invalid + p {
+  display: block;
+  color: red;
+}
+
+input:focus:invalid + p {
+  color: #aaa;
+}
+/* END Required input validation */
+
 /* Styles for screens larger than 768px */
 @media (min-width: 768px) {
   body {
