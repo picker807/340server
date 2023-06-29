@@ -6,7 +6,7 @@
   } %>
 
 <!--Message placeholder-->
-  <% messages() %>
+  <%- messages() %>
 
 <!--Error display-->
   <% if (errors) { %>
@@ -21,11 +21,11 @@
   <div class="registration-container">
     <form id="registration-form" action="/account/register" method="POST">
       <label for="first-name">First Name:</label>
-      <input type="text" id="first-name" name="account_firstname" required value="<%= locals.account_firstname %>">>
+      <input type="text" id="first-name" name="account_firstname" required value="<%= locals.account_firstname %>">
       <label for="last-name">Last Name:</label>
-      <input type="text" id="last-name" name="account_lastname" required value="<%= locals.account_lastname %>">>
+      <input type="text" id="last-name" name="account_lastname" required value="<%= locals.account_lastname %>">
       <label for="email">Email:</label>
-      <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>">>
+      <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>">
       <label for="password">Password:</label>
       <div class="password-input">
         <input type="password" id="password" name="account_password" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':\\|,.<>/?]).{12,}$" required>
