@@ -4,6 +4,6 @@ const errorController = require("../controllers/errorController")
 const utilities = require("../utilities/")
 
 // Router for intentional 500 error
-router.get('/', errorController.triggerError);
+router.get('/', utilities.handleErrors(errorController.triggerError));
 
 module.exports = router

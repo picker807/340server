@@ -1,0 +1,23 @@
+<!--Heading: Populate the title-->
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<!--Message placeholder-->
+  <% messages() %>
+
+  <!--Login form-->
+  <div class="login-container">
+    <form id="login-form" action="#" method="POST">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="account_email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="account_password" required>
+      <input type="submit" value="Login">
+    </form>
+    <div class="registration-link">
+      No account? <a href="/account/registration">Sign-up</a>
+    </div>
+  </div>
