@@ -63,11 +63,13 @@ nav ul {
   padding: 0;
   margin: 0;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 nav li {
   flex-grow: 1;
-  margin: 0 1vw;
+  margin: 0 .15vw;
+  white-space: nowrap;
 }
 
 nav a {
@@ -341,9 +343,11 @@ footer {
   font-size: 5vw;
   color:#8C6D6B
 }
-/* Login and Registration Forms */
+/* Login, Registration and Management Forms */
 .login-container,
-.registration-container {
+.registration-container,
+#add-classification-form,
+#inventory-form {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -358,7 +362,12 @@ footer {
 .registration-container input[type="text"],
 .registration-container input[type="email"],
 .registration-container input[type="password"],
-.registration-container input[type="submit"] {
+.registration-container input[type="submit"],
+#add-classification-form input[type="text"],
+#add-classification-form input[type="submit"],
+#inventory-form input,
+#inventory-form select,
+#inventory-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -366,20 +375,27 @@ footer {
   border: 1px solid #f0ebeb;
 }
 .login-container label,
-.registration-container label {
+.registration-container label,
+#add-classification-form label,
+#inventory-form label {
   font-weight: bold;
   font-size: 2em;
   color:#fffdfc
 }
 .login-container input[type="submit"],
-.registration-container input[type="submit"] {
+.registration-container input[type="submit"],
+#add-classification-form input[type="submit"],
+#inventory-form button[type="submit"] {
   background-color:#7E826D;
   color:#ffffff;
   cursor: pointer;
   font-size: 2em;
+  width: 100%;
 }
 .login-container input[type="submit"]:hover,
-.registration-container input[type="submit"]:hover {
+.registration-container input[type="submit"]:hover,
+#add-classification-form input[type="submit"]:hover,
+#inventory-form button[type="submit"]:hover{
   background-color: #669868;
 }
 .login-container .registration-link {
@@ -393,9 +409,10 @@ footer {
 .registration-container input[type="checkbox"] + label {
   font-size: 20px;
 }
-.password-description {
+.password-description,
+.validation-description {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 20px;
   text-align: center;
 }
 .password-input {
@@ -405,8 +422,9 @@ footer {
 
 /* Required input validation */
 input:required:invalid,
-input:focus:invalid {
-  border-color: red;
+input:focus:invalid,
+textarea:required:invalid {
+  border: 2px solid red !important;
 }
 
 input:required:invalid::placeholder {
@@ -419,13 +437,15 @@ input:focus:invalid::placeholder {
 
 input:required:invalid + p {
   display: block;
-  color: red;
+  border: 4px solid #000;
+  border-color: red;
 }
 
-input:focus:invalid + p {
-  color: #aaa;
-}
 /* END Required input validation */
+
+.lonely-links {
+  margin-left: 2em;
+}
 
 /* Styles for screens larger than 768px */
 @media (min-width: 768px) {

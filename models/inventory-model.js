@@ -42,6 +42,79 @@ async function getInventoryByInventoryId(inv_id) {
   }
 }
 
+/* ***************************
+ *  Add new classification to DB
+ * ************************** */
+async function addClassification (classification_name){
+try{
+  console.log("Started query to class DB")
+  await pool.query(
+    `INSERT INTO public.classification (classification_name)
+    VALUES ($1)`,
+    [classification_name]
+  )
+  return true
+} catch (error) {
+  console.error("addclassification error " + error)
+}
+}
+
+/* ***************************
+ *  Check for existing classification
+ * ************************** */
+async function checkExistingClass(classification_name){
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    const classification = await pool.query(sql, [classification_name])
+    return classification.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+/* ***************************
+ *  Add new Inventory item to the DB
+ * ************************** */
+async function addInventory(classification_id,
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_miles,
+  inv_color) {
+    try {
+      const sql = `INSERT INTO public.inventory (classification_id,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color)
+      VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+        )`
+      const addInv = await pool.query(sql, 
+        [classification_id,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color])  
+        
+      return true
+    } catch (error) {
+      console.error("addinventory error " + error)
+    }
+  }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId};
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, addClassification, checkExistingClass, addInventory };

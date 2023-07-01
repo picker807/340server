@@ -33,5 +33,142 @@ invCont.buildByInventoryId = async function (req, res) {
   })
 
 }
+/* *************************
+ * Build inventory Mangement
+ * ************************ */
+invCont.buildManagement = async function (req, res) {
+  let nav = await utilities.getNav()
+  res.render("inventory/management", {
+    title: "Inventory Management",
+    nav
+  })
+}
+/* *************************
+ * Deliver add classification form view
+ * ************************ */
+invCont.buildAddClassification = async function (req, res) {
+  let nav = await utilities.getNav()
+  console.log("rendering add class view")
+  res.render("inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+  })
+}
+/* *************************
+ * Deliver add inventory form view
+ * ************************ */
+invCont.buildAddInventory = async function (req, res) {
+  let nav = await utilities.getNav()
+  let classifications = await utilities.getClassOptions()
+  console.log(classifications)
+  res.render("inventory/add-inventory", {
+    title: "Add Inventory",
+    nav,
+    errors: null,
+    classifications,
+  })
+}
+/* *************************
+ * Process add classification
+ * ************************ */
+invCont.addClassification = async (req, res) => {
+
+  const { classification_name } = req.body;
+
+  const classResult = await invModel.addClassification(classification_name);
+  console.log("result of adding class to DB: ", classResult)
+  if (classResult) {
+   // consol.log("classResult is true, generating message class added")
+    req.flash(
+      "notice",
+      `New classification, ${classification_name}, added.`
+    );
+    let nav = await utilities.getNav();
+    res.render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      errors:null,
+    })
+  } else {
+    console.log("classResult is false, should get some errors")
+    req.flash("notice", "Sorry, there was a problem adding the new classification.");
+    let nav = await utilities.getNav();
+    res.status(501).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+      classification_name,
+    });
+  }
+};
+
+/* *************************
+ * Process add inventory
+ * ************************ */
+invCont.addNewInventory = async (req, res) => {
+
+  const { 
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color } = req.body;
+
+  const invResult = await invModel.addInventory(
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color
+    );
+
+  console.log("result of adding inventory to DB: ", invResult)
+  if (invResult) {
+   
+    req.flash(
+      "notice",
+      `New inventory, ${inv_make} ${inv_model}, added.`
+    );
+    let nav = await utilities.getNav();
+    res.render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      errors:null,
+    })
+  } else {
+    console.log("invResult is false, should get some errors")
+    req.flash("notice", "Sorry, there was a problem adding the new inventory.");
+    let nav = await utilities.getNav();
+    let classifications = await utilities.getClassOptions()
+  
+    res.status(501).render("inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      errors: null,
+      classifications,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+    });
+  }
+};
+
 
 module.exports = invCont
