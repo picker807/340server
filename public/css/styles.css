@@ -343,10 +343,11 @@ footer {
   font-size: 5vw;
   color:#8C6D6B
 }
-/* Login and Registration Forms */
+/* Login, Registration and Management Forms */
 .login-container,
 .registration-container,
-#add-classification-form {
+#add-classification-form,
+#inventory-form {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -363,7 +364,10 @@ footer {
 .registration-container input[type="password"],
 .registration-container input[type="submit"],
 #add-classification-form input[type="text"],
-#add-classification-form input[type="submit"] {
+#add-classification-form input[type="submit"],
+#inventory-form input,
+#inventory-form select,
+#inventory-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -372,22 +376,26 @@ footer {
 }
 .login-container label,
 .registration-container label,
-#add-classification-form label {
+#add-classification-form label,
+#inventory-form label {
   font-weight: bold;
   font-size: 2em;
   color:#fffdfc
 }
 .login-container input[type="submit"],
 .registration-container input[type="submit"],
-#add-classification-form input[type="submit"] {
+#add-classification-form input[type="submit"],
+#inventory-form button[type="submit"] {
   background-color:#7E826D;
   color:#ffffff;
   cursor: pointer;
   font-size: 2em;
+  width: 100%;
 }
 .login-container input[type="submit"]:hover,
 .registration-container input[type="submit"]:hover,
-#add-classification-form input[type="submit"]:hover{
+#add-classification-form input[type="submit"]:hover,
+#inventory-form button[type="submit"]:hover{
   background-color: #669868;
 }
 .login-container .registration-link {
@@ -414,9 +422,9 @@ footer {
 
 /* Required input validation */
 input:required:invalid,
-input:focus:invalid {
-  border: 2px solid;
-  border-color: red;
+input:focus:invalid,
+textarea:required:invalid {
+  border: 2px solid red !important;
 }
 
 input:required:invalid::placeholder {

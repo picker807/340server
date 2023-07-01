@@ -21,6 +21,81 @@ validate.newClassificationRules= () => {
     }),
   ]}
 
+/*******************
+ * Rules for new Inventory
+ ********************/
+validate.newInventoryRules = () => {
+  return[
+    //Check that classification name matches database
+    body("classification_id")
+    .trim()
+    .custom(async (classification_id) => {
+      let validClass = false
+      let classifications = await invModel.getClassifications()
+      classifications.rows.forEach(classification => {
+        if (classification.classification_id == classification_id) {
+          validClass = true
+        }
+      });
+  
+      if (!validClass) {
+        console.log("class ID: ", classification_id)
+        throw new Error("Classification is not valid")
+      }
+    })
+    .withMessage("Select a classification"),
+    
+    // Rule for vehicle make
+    body("inv_make")
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("Make must be 3 characters minimum"),
+
+    //Rule for vehicle model
+    body("inv_model")
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("Model must be 3 characters minimum"),
+
+    //Rule for year
+    body("inv_year")
+    .trim()
+    .isInt()
+    .isLength({ min: 4, max: 4 })
+    .withMessage('Year must be a 4-digit number'),
+    
+    // Rule for price
+    body("inv_price")
+    .trim()
+    .isNumeric()
+    .withMessage('Price must be a valid number, no punctuation'),
+
+    // Rule for miles
+    body("inv_miles")
+    .trim()
+    .isNumeric()
+    .withMessage('Miles must be a valid number, no punctuation'),
+  
+    //Rule for color
+    body("inv_color")
+    .trim()
+    .isLength({min: 3})
+    .withMessage("Color must be at least 3 characters"),
+
+    //Rule for image
+    body("inv_image")
+    .matches(/^.*$/) // Matches any character sequence
+    .withMessage('Invalid image path'),
+
+    //rule for thumbnail
+    body("inv_thumbnail")
+    .matches(/^.*$/) // Matches any character sequence
+    .withMessage('Invalid thumbnail path'),
+  ]
+}
+
+
+
 /* ******************************
  * Check data and return errors or continue to adding classification
  * ***************************** */
@@ -36,6 +111,37 @@ validate.checkClassData = async (req, res, next) => {
       title: "Add Classification",
       nav,
       classification_name,
+    })
+    return
+  }
+  next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to adding inventory
+ * ***************************** */
+validate.checkInvData = async (req, res, next) => {
+  const {classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color} = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    let classifications = await utilities.getClassOptions()
+    res.render("inventory/add-inventory", {
+      errors,
+      title: "Add Inventory",
+      nav,
+      classifications,
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
     })
     return
   }
