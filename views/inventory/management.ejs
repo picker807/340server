@@ -1,0 +1,14 @@
+<!--Heading: Populate the title-->
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<!--Message placeholder-->
+  <%- messages() %>
+
+<!--Display links to classification and vehicle management-->
+
+<p class="lonely-links"><a href="/inv/newClassification">Add New Classification</a></p>
+<p class="lonely-links"><a href="/inv/newInventory">Add New Inventory Item</a></p>
