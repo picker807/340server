@@ -24,6 +24,9 @@ router.get("/newinv", utilities.handleErrors(invController.buildAddInventory))
 // Route to fetch inventory by classification for the inventory management view
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
+// Route to modify inventory from inventory management view
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInventory))
+
 // Route to add new classification
 router.post("/newClassification",
 manValidate.newClassificationRules(),
@@ -35,5 +38,11 @@ router.post("/newinv",
 manValidate.newInventoryRules(),
 manValidate.checkInvData,
 utilities.handleErrors(invController.addNewInventory))
+
+// Route to update vehicle info
+router.post("/update/",
+manValidate.newInventoryRules(),
+manValidate.checkUpdateData,
+utilities.handleErrors(invController.updateInventory))
 
 module.exports = router;
