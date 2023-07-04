@@ -4,6 +4,32 @@
 *:after {
   box-sizing: border-box;
 }
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notice li {
+  margin-bottom: 5px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 5px solid #8C6D6B;
+  text-align: center;
+  width: 60%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.notice .notice-message {
+  color: #333;
+  font-weight: bold;
+  word-wrap: break-word;
+}
 
 body {
   background-image: url("/images/site/small_check.jpg");
@@ -86,7 +112,8 @@ nav a:hover {
   color: #555;
 }
 
-h1 {
+h1, h2, p,
+#classificationList {
   margin-left: 10px;
 }
 /* Car image and details */
@@ -442,6 +469,50 @@ input:required:invalid + p {
 }
 
 /* END Required input validation */
+/* Inventory Management Table*/
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+#inventoryDisplay tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#inventoryDisplay tbody td {
+  text-align: left;
+}
+
+#inventoryDisplay a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+#inventoryDisplay a:hover {
+  color: #0056b3;
+}
+
+#inventoryDisplay tbody td:first-child {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* END Inventory Management Table */
 
 .lonely-links {
   margin-left: 2em;

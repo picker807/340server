@@ -20,10 +20,11 @@
 <!--inventory entry form-->
 <form id="inventory-form" action="/inv/newinv" method="POST">
   <label for="classification_id">Classification:</label>
+  
   <select id="classification_id" name="classification_id" required>
     <%- classifications %>
   </select>
-
+  
   <label for="inv_make">Make:</label>
   <input type="text" id="inv_make" name="inv_make" required value="<%= locals.inv_make %>">
 

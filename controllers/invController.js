@@ -38,9 +38,12 @@ invCont.buildByInventoryId = async function (req, res) {
  * ************************ */
 invCont.buildManagement = async function (req, res) {
   let nav = await utilities.getNav()
+  const classificationList = await utilities.getClassOptions()
   res.render("inventory/management", {
     title: "Inventory Management",
-    nav
+    nav,
+    errors: null,
+    classificationList,
   })
 }
 /* *************************
@@ -141,10 +144,12 @@ invCont.addNewInventory = async (req, res) => {
       `New inventory, ${inv_make} ${inv_model}, added.`
     );
     let nav = await utilities.getNav();
+    let classificationList = await utilities.getClassOptions()
     res.render("inventory/management", {
       title: "Inventory Management",
       nav,
       errors:null,
+      classificationList
     })
   } else {
     console.log("invResult is false, should get some errors")
@@ -170,5 +175,17 @@ invCont.addNewInventory = async (req, res) => {
   }
 };
 
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
 
 module.exports = invCont

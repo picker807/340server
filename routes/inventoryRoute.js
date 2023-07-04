@@ -21,6 +21,9 @@ router.get("/newClassification", utilities.handleErrors(invController.buildAddCl
 // route to build Add Inventory View
 router.get("/newinv", utilities.handleErrors(invController.buildAddInventory))
 
+// Route to fetch inventory by classification for the inventory management view
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 // Route to add new classification
 router.post("/newClassification",
 manValidate.newClassificationRules(),

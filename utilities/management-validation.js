@@ -63,7 +63,25 @@ validate.newInventoryRules = () => {
     .isInt()
     .isLength({ min: 4, max: 4 })
     .withMessage('Year must be a 4-digit number'),
+
+    //Rule for description
+    body("inv_description")
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage("Add a description, min 3 characters"),
     
+     //Rule for image
+     body("inv_image")
+     .matches(/^.*$/) // Matches any character sequence
+     .isLength({min: 1})
+     .withMessage('Invalid image path'),
+ 
+     //rule for thumbnail
+     body("inv_thumbnail")
+     .matches(/^.*$/) // Matches any character sequence
+     .isLength({min: 1})
+     .withMessage('Invalid thumbnail path'),
+
     // Rule for price
     body("inv_price")
     .trim()
@@ -81,16 +99,6 @@ validate.newInventoryRules = () => {
     .trim()
     .isLength({min: 3})
     .withMessage("Color must be at least 3 characters"),
-
-    //Rule for image
-    body("inv_image")
-    .matches(/^.*$/) // Matches any character sequence
-    .withMessage('Invalid image path'),
-
-    //rule for thumbnail
-    body("inv_thumbnail")
-    .matches(/^.*$/) // Matches any character sequence
-    .withMessage('Invalid thumbnail path'),
   ]
 }
 
