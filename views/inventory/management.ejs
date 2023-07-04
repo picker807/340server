@@ -8,7 +8,29 @@
 <!--Message placeholder-->
   <%- messages() %>
 
+  <!--Error display-->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
 <!--Display links to classification and vehicle management-->
 
 <p class="lonely-links"><a href="/inv/newClassification">Add New Classification</a></p>
 <p class="lonely-links"><a href="/inv/newinv">Add New Inventory Item</a></p>
+
+<h2>Manage Inventory</h2>
+<p>Choose a classification to see those inventory items.</p>
+
+<select id="classificationList" name="classification_id" required>
+<%- classificationList %>
+</select>
+
+<table id="inventoryDisplay"></table>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<script src="../../js/inventory.js"></script>

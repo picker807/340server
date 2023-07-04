@@ -1,4 +1,6 @@
 const invModel = require("../models/inventory-model")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const Util = {}
 
 /* ************************
@@ -91,11 +93,11 @@ Util.getClassOptions = async function() {
   const classifications = await invModel.getClassifications()
   console.log(classifications.rows)
   if (classifications) {
-    let display = `<option value="">Select a classification</option>`;
+    let display = `<option value="">Select a classification</option>`
   classifications.rows.forEach(classification => {
-    display += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+    display += `<option value="${classification.classification_id}">${classification.classification_name}</option>`
   });
-  console.log(display)
+  
   return display
 }}
 /* ****************************************
@@ -110,5 +112,39 @@ Util.catchErrors = (err, req, res, next) => {
   res.redirect('/error');
 };
 
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 module.exports = Util
