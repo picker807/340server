@@ -8,7 +8,10 @@ const invCont = {}
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
+  console.log(classification_id)
   const data = await invModel.getInventoryByClassificationId(classification_id)
+  if (data.length > 0) {
+    console.log(data)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
   const className = data[0].classification_name
@@ -17,6 +20,10 @@ invCont.buildByClassificationId = async function (req, res, next) {
     nav,
     grid,
   })
+  }else{
+    req.flash("notice", "Sorry, there are no vehicles for this classification. Please select a different one.")
+    res.redirect("/")
+  }
 }
 /* *************************
  * Build inventory by Inventory ID view
