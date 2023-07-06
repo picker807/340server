@@ -18,7 +18,8 @@
 <% } %>
 
 <!--inventory entry form-->
-<form id="inventory-form" action="/inv/update" method="POST">
+
+<form id="update-form" action="/inv/update" method="POST">
   <label for="classification_id">Classification:</label>
   
   <select id="classification_id" name="classification_id" required>
@@ -52,9 +53,10 @@
   <label for="inv_color">Color:</label>
   <input type="text" id="inv_color" name="inv_color" required value="<%= locals.inv_color %>">
 
-  <button type="submit">Update Vehicle</button>
-  
+  <button type="submit" disabled>Update Vehicle</button>
+
   <input type="hidden" name="inv_id"
 <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
 <% } %>>
 </form>
+<script src="../../js/inv_update.js"></script>
