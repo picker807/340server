@@ -83,16 +83,18 @@ invCont.addClassification = async (req, res) => {
   const classResult = await invModel.addClassification(classification_name);
   console.log("result of adding class to DB: ", classResult)
   if (classResult) {
-   // consol.log("classResult is true, generating message class added")
+   
     req.flash(
       "notice",
       `New classification, ${classification_name}, added.`
     );
     let nav = await utilities.getNav();
+    let classificationList = await utilities.getClassOptions(class_id = '')
     res.render("inventory/management", {
       title: "Inventory Management",
       nav,
       errors:null,
+      classificationList,
     })
   } else {
     console.log("classResult is false, should get some errors")

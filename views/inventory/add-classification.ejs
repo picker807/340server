@@ -19,8 +19,8 @@
 
   <!--Display entry form -->
   <form id="add-classification-form" action="/inv/newClassification" method="POST">
-    <label for="classification-name">Classification Name:</label>
-    <input type="text" id="classification_name" name="classification_name" required pattern ="^[a-zA-Z0-9]+$" value="<%= locals.classification_name %>">
+    <label for="class-name">Classification Name:</label>
+    <input type="text" id="class-name" name="classification_name" required pattern ="^[a-zA-Z0-9]+$" value="<%= locals.classification_name %>">
     <p class="validation-description">Classification cannot contain spaces or special characters</p>
     <input type="submit" value="Add Classification">
   </form>
