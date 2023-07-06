@@ -89,17 +89,19 @@ Util.buildInventoryDisplay = async function (info) {
 /* **************************************
 * Build the classification list for adding inventory
 * ************************************ */
-Util.getClassOptions = async function() {
-  const classifications = await invModel.getClassifications()
-  console.log(classifications.rows)
+Util.getClassOptions = async function(class_id = '') {
+  const classifications = await invModel.getClassifications();
   if (classifications) {
-    let display = `<option value="">Select a classification</option>`
-  classifications.rows.forEach(classification => {
-    display += `<option value="${classification.classification_id}">${classification.classification_name}</option>`
-  });
-  
-  return display
-}}
+    let display = `<option value="">Select a classification</option>`;
+    classifications.rows.forEach(classification => {
+      const isSelected = classification.classification_id === class_id ? 'selected' : '';
+      display += `<option value="${classification.classification_id}" ${isSelected}>${classification.classification_name}</option>`;
+    });
+
+    return display;
+  }
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

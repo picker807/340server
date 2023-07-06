@@ -374,7 +374,8 @@ footer {
 .login-container,
 .registration-container,
 #add-classification-form,
-#inventory-form {
+#inventory-form,
+#update-form {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -394,7 +395,10 @@ footer {
 #add-classification-form input[type="submit"],
 #inventory-form input,
 #inventory-form select,
-#inventory-form textarea {
+#inventory-form textarea,
+#update-form input,
+#update-form select,
+#update-form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -404,7 +408,8 @@ footer {
 .login-container label,
 .registration-container label,
 #add-classification-form label,
-#inventory-form label {
+#inventory-form label,
+#update-form label {
   font-weight: bold;
   font-size: 2em;
   color:#fffdfc
@@ -412,7 +417,8 @@ footer {
 .login-container input[type="submit"],
 .registration-container input[type="submit"],
 #add-classification-form input[type="submit"],
-#inventory-form button[type="submit"] {
+#inventory-form button[type="submit"],
+#update-form button[type="submit"] {
   background-color:#7E826D;
   color:#ffffff;
   cursor: pointer;
@@ -422,8 +428,13 @@ footer {
 .login-container input[type="submit"]:hover,
 .registration-container input[type="submit"]:hover,
 #add-classification-form input[type="submit"]:hover,
-#inventory-form button[type="submit"]:hover{
+#inventory-form button[type="submit"]:hover,
+#update-form button:not(:disabled):hover{
   background-color: #669868;
+}
+button:disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 .login-container .registration-link {
   text-align: center;
