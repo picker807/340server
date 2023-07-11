@@ -13,22 +13,40 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
 
 // Route to inventory management page
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/", 
+utilities.checkLogin,
+utilities.checkAccountType,
+utilities.handleErrors(invController.buildManagement));
 
 // Route to build Add Classification View
-router.get("/newClassification", utilities.handleErrors(invController.buildAddClassification));
+router.get("/newClassification", 
+utilities.checkLogin,
+utilities.checkAccountType,
+utilities.handleErrors(invController.buildAddClassification));
 
 // route to build Add Inventory View
-router.get("/newinv", utilities.handleErrors(invController.buildAddInventory))
+router.get("/newinv", 
+utilities.checkLogin, 
+utilities.checkAccountType,
+utilities.handleErrors(invController.buildAddInventory))
 
 // Route to fetch inventory by classification for the inventory management view
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id", 
+utilities.checkLogin, 
+utilities.checkAccountType,
+utilities.handleErrors(invController.getInventoryJSON))
 
 // Route to modify inventory from inventory management view
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInventory))
+router.get("/edit/:inv_id", 
+utilities.checkLogin, 
+utilities.checkAccountType,
+utilities.handleErrors(invController.buildEditInventory))
 
 // Route to delete inventory item
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteView))
+router.get("/delete/:inv_id", 
+utilities.checkLogin, 
+utilities.checkAccountType,
+utilities.handleErrors(invController.buildDeleteView))
 
 // Route to add new classification
 router.post("/newClassification",

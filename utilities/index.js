@@ -128,8 +128,12 @@ Util.checkJWTToken = (req, res, next) => {
       res.clearCookie("jwt")
       return res.redirect("/account/login")
      }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
+     res.locals.account_id = accountData.account_id
+     res.locals.account_firstname = accountData.account_firstname
+     res.locals.account_lastname = accountData.account_lastname
+     res.locals.account_email = accountData.account_email
+     res.locals.account_type = accountData.account_type
+     res.locals.loggedIn = 1
      next()
     })
   } else {
@@ -141,10 +145,23 @@ Util.checkJWTToken = (req, res, next) => {
  *  Check Login
  * ************************************ */
  Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
+  if (res.locals.loggedIn) {
     next()
   } else {
     req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
+ /* ****************************************
+ *  Check Account Type
+ * ************************************ */
+ Util.checkAccountType = (req, res, next) => {
+  const type = res.locals.account_type
+  if (type == "Admin" || type == "Employee") {
+    next()
+  } else {
+    req.flash("notice", "You are not authorized to view that page.")
     return res.redirect("/account/login")
   }
  }
