@@ -112,6 +112,9 @@ async function accountLogin(req, res) {
    const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
    res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
    return res.redirect("/account/")
+   } else {
+    req.flash("notice", "Invalid email or password");
+    return res.redirect("/account/login");
    }
   } catch (error) {
    return new Error('Access Forbidden')
