@@ -235,13 +235,13 @@ validate.checkReviewData = async (req, res, next) => {
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-    const accountData = accountModel.getAccountById(account_id)
+    const accountData = await accountModel.getAccountById(account_id)
     const userName = `${accountData.account_firstname} 
     ${accountData.account_lastname}`
     res.render("account/review/add-review", {
       title: `${userName}'s Review`,
       nav,
-      errors: null,
+      errors,
       review_name,
       review_rating,
       review_text
