@@ -261,15 +261,17 @@ footer {
 
 /* Style for inventory grid*/
 
-#inv-display {
+#inv-display,
+#review-display {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 15px;
 }
 
-#inv-display li {
+#inv-display li,
+#review-display li {
   flex-basis: 100%;
   max-width: 100%;
   display: flex;
@@ -311,6 +313,10 @@ footer {
 
 .namePrice span {
   font-weight: bold;
+}
+
+.rating{
+  margin-bottom: 10px;
 }
 /* END Style for inventory grid*/
 
@@ -376,7 +382,8 @@ footer {
 #add-classification-form,
 #inventory-form,
 #update-form,
-.update-container {
+.update-container,
+#review-form {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -404,7 +411,9 @@ footer {
 #update-account-form input[type="text"],
 #update-password-form input[type="text"],
 #update-password-form input[type="password"],
-#update-password-form input[type="submit"]{
+#update-password-form input[type="submit"],
+#review-form input,
+#review-form textarea{
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
@@ -417,7 +426,8 @@ footer {
 #inventory-form label,
 #update-form label,
 #update-account-form label,
-#update-password-form label {
+#update-password-form label,
+.review-label {
   font-weight: bold;
   font-size: 2em;
   color:#fffdfc
@@ -428,7 +438,8 @@ footer {
 #inventory-form button[type="submit"],
 #update-form button[type="submit"],
 #update-password-form input[type="submit"],
-#update-account-form input[type="submit"]
+#update-account-form input[type="submit"],
+#review-form input[type="submit"]
  {
   background-color:#7E826D;
   color:#ffffff;
@@ -536,10 +547,48 @@ input:required:invalid + p {
 }
 
 /* END Inventory Management Table */
+/* Review Ratings */
+.rating {
+  display: inline-block;
+}
 
-.lonely-links {
+.rating input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.star {
+  display: inline-block;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.highlight {
+  color: gold;
+}
+
+#character-count{
+  margin-bottom: 10px;
+  color: #fbff02;
+  font-size:x-large
+}
+#review_text{
+  height: 200px;
+  font-size:18px;
+}
+#review_name {
+  font-size:18px;
+}
+
+/* END Review Ratings*/
+
+.lonely-links,
+.header-link {
   margin-left: 2em;
 }
+
 
 /* Styles for screens larger than 768px */
 @media (min-width: 768px) {

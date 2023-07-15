@@ -129,8 +129,8 @@ Util.checkJWTToken = (req, res, next) => {
       return res.redirect("/account/login")
      }
      res.locals.account_id = accountData.account_id
-     res.locals.account_firstname = accountData.account_firstname
-     res.locals.account_lastname = accountData.account_lastname
+     res.locals.accountFirstName = accountData.account_firstname
+     res.locals.accountLastName = accountData.account_lastname
      res.locals.account_email = accountData.account_email
      res.locals.account_type = accountData.account_type
      res.locals.loggedIn = 1
@@ -165,5 +165,37 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+/* ****************************************
+ *  Build Reviews Table
+ * ************************************ */
+Util.buildReviewGrid = async function (data) {
+  let grid;
+  if (data.length > 0) {
+    grid = '<ul id="review-display">';
+    data.forEach(review => {
+      grid += `<li class="review-item">
+        <div id="review-name">${review.review_name}</div><br>
+        <div class="rating">`;
+    
+        for (let i = 1; i <= 5; i++) {
+          grid += `<div class="rating" data-review-id="${review.review_id}">`;
+          grid += `
+            <input type="radio" id="rating${i}-${review.review_id}" name="review_rating-${review.review_id}" value="${i}" ${review.review_rating === i ? 'checked' : ''} hidden>
+            <label for="rating${i}-${review.review_id}" class="star ${i <= review.review_rating ? 'highlight' : ''}">&#9733;</label>`;
+          grid += `</div>`;
+        }
+      grid += `
+      <div id="review-text">${review.review_text}</div>
+      </li>`
+    })
+    
+      
+      grid += '</ul>';
+  } else {
+    grid = '<p class="notice">There are no reviews</p>';
+  }
+  return grid;
+}
 
 module.exports = Util

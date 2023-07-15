@@ -59,4 +59,26 @@ router.get(
   utilities.handleErrors(accountController.logoutUser)
 )
 
+// User reviews page
+router.get(
+  "/review/",
+  utilities.handleErrors(accountController.buildReviews)
+)
+// New user review form
+router.get(
+  "/review/new",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildNewReview)
+)
+
+// post new user review
+router.post(
+  "/review/new",
+  utilities.checkLogin,
+  regValidate.newReviewRules(),
+  regValidate.checkReviewData,
+  utilities.handleErrors(accountController.postReview)
+)
+
+
 module.exports = router;
