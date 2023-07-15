@@ -213,7 +213,7 @@ validate.newReviewRules = () => {
   return [
     body('review_name')
       .trim()
-      .isLength({ max: 30 })
+      .isLength({ min: 3, max: 30 })
       .withMessage('Review name is limited to 30 characters long'),
     body('review_rating')
       .trim()
@@ -221,7 +221,7 @@ validate.newReviewRules = () => {
       .withMessage('Review rating must be an integer between 1 and 5'),
     body('review_text')
       .trim()
-      .isLength({ max: 1000 })
+      .isLength({ min:3, max: 1000 })
       .withMessage('Review text is limited to 1000 characters long'),
   ]
 }
