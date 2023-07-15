@@ -1,0 +1,43 @@
+<!--Heading: Populate the title-->
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<!--Message placeholder-->
+  <%- messages() %>
+
+<!--Error display-->
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<form id="review-form" action="/account/review/new" method="POST">
+  <input type="hidden" name="account_id" value="<%= account_id %>">
+  
+  <label for="review_name" class="review-label">Name on your review:</label>
+  <input type="text" name="review_name" id="review_name" maxlength="30" required value="<%= review_name %>">
+
+  <label for="rating" class="review-label">Rating:</label>
+  <div class="rating" id="review_rating">
+  <% for (let i = 1; i <= 5; i++) { %>
+    <div class="rating">
+      <input type="radio" id="rating<%= i %>" name="review_rating" value="<%= i %>" <%= review_rating === i ? 'checked' : '' %> />
+      <label for="rating<%= i %>" class="star" onclick="updateRating('<%= i %>')">&#9733;</label>
+    </div>
+  <% } %>
+  </div>
+
+
+  <label for="review_text" class="review-label">Review:</label>
+  <textarea name="review_text" id="review_text" maxlength="1000" required><%= review_text %></textarea>
+  <div id="character-count">/1000 Characters</div>
+
+  <input type="submit" value="Post Review">
+</form>
+<script src="/js/review.js" data-review-rating="<%= review_rating %>"></script>

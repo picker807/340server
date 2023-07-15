@@ -242,3 +242,12 @@ VALUES   (
 UPDATE inventory
 SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
     inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+CREATE TABLE public.review (
+    review_id SERIAL PRIMARY KEY,
+    review_text VARCHAR(1000) NOT NULL,
+    review_name VARCHAR(30) NOT NULL,
+    review_rating INT CHECK (review_rating >= 1 AND review_rating <= 5) NOT NULL,
+    account_id INT UNIQUE,
+    FOREIGN KEY (account_id) REFERENCES public.account(account_id)
+);

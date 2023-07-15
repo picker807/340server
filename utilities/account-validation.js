@@ -174,8 +174,8 @@ validate.checkAccountData = async (req, res, next) => {
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-    const itemName = `${account_firstname} ${account_lastname}`
-  res.render("./account/update", {
+    const itemName = `${res.locals.accountFirstName} ${res.locals.accountLastName}`
+  res.render(`./account/update`, {
     title: "Update account for " + itemName,
     nav,
     errors,
@@ -201,6 +201,51 @@ validate.checkPasswordData = async (req, res, next) => {
       "notice",
       "Password does not meet requirements")
     res.redirect(`/account/update/${account_id}`)
+    return
+  }
+  next()
+}
+
+/*  **********************************
+ *  New Review validation rules
+ * ********************************* */
+validate.newReviewRules = () => {
+  return [
+    body('review_name')
+      .trim()
+      .isLength({ max: 30 })
+      .withMessage('Review name is limited to 30 characters long'),
+    body('review_rating')
+      .trim()
+      .isInt({ min: 1, max: 5 })
+      .withMessage('Review rating must be an integer between 1 and 5'),
+    body('review_text')
+      .trim()
+      .isLength({ max: 1000 })
+      .withMessage('Review text is limited to 1000 characters long'),
+  ]
+}
+
+/* ******************************
+ * Check Review Data
+ * ***************************** */
+validate.checkReviewData = async (req, res, next) => {
+  const { account_id, review_name, review_rating, review_text } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    const accountData = accountModel.getAccountById(account_id)
+    const userName = `${accountData.account_firstname} 
+    ${accountData.account_lastname}`
+    res.render("account/review/add-review", {
+      title: `${userName}'s Review`,
+      nav,
+      errors: null,
+      review_name,
+      review_rating,
+      review_text
+    })
     return
   }
   next()

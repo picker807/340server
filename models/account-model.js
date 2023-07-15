@@ -118,5 +118,55 @@ async function checkEmailById(account_id, account_email){
   }
 }
 
+/* **********************
+ *   Get all reviews
+ * ********************* */
+async function getAllReviews(){
+  try {
+    const reviews = await pool.query("SELECT * FROM public.review ORDER BY review_id ASC ")
+    return reviews.rows
+
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* **********************
+ *   Get user review by ID
+ * ********************* */
+async function getReviewById(account_id){
+  try {
+    const sql = "SELECT * FROM public.review WHERE account_id = $1 "
+    const review = await pool.query(sql, [account_id])
+    return review.rows[0]
+
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* **********************
+ *  Post review to DB
+ * ********************* */
+async function postReview(
+  account_id, 
+  review_name, 
+  review_rating,
+  review_text){
+  try {
+    const sql = `
+      INSERT INTO public.review (account_id, review_name, review_rating, review_text)
+      VALUES ($1, $2, $3, $4)
+      ON CONFLICT (account_id)
+      DO UPDATE SET review_name = $2, review_rating = $3, review_text = $4
+      RETURNING *;`;
+    const result = await pool.query(sql, [account_id, review_name, review_rating, review_text]);
+
+    return result.rows[0]
+  } catch (error) {
+    return new Error("There was an error posting your review")
+  }
+}
+
 module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, 
-  getAccountById, updateAccount, changePassword, checkEmailById};
+  getAccountById, updateAccount, changePassword, checkEmailById, getAllReviews, getReviewById, postReview};
